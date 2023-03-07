@@ -59,6 +59,7 @@
             function showUserOnScreen(obj){
                 const parentEle = document.getElementById('listOfitems');
                 const childEle = document.createElement('li');
+                
                 childEle.textContent = obj.name+'-'+obj.email+'-'+obj.phone+'-';
                 parentEle.appendChild(childEle);
 
@@ -67,7 +68,7 @@
                 delButton.value = "Delete";
                 childEle.appendChild(delButton);
 
-                //when i click delete button i need to delete the userdetails
+                //when i click delete button i need to delete the
                 delButton.onclick = () => {
                     //localStorage.removeItem(obj.email);
                     //parentEle.removeChild(childEle);
@@ -86,8 +87,15 @@
                 childEle.appendChild(editButton);
 
                 editButton.onclick = () =>{
-                    localStorage.removeItem(obj.email);
-                    parentEle.removeChild(childEle);
+                    //localStorage.removeItem(obj.email);
+                    axios.delete("https://crudcrud.com/api/93ecd19d573c4922bb44e552c176c4a6/BookingsAppData/" + obj._id)
+                    .then(()=>{
+                        parentEle.removeChild(childEle);
+                    })
+                    .catch((err) =>{
+                        console.log(err)
+                    })
+                    
                     document.getElementById('usernameInputTag').value = obj.name;
                     document.getElementById('emailInputTag').value = obj.email;
                     document.getElementById('phonenumberInputTag').value = obj.phone;
