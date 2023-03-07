@@ -1,0 +1,70 @@
+<html>
+    <body>
+        <form onsubmit="saveToLocalStorage(event)">
+            <label>Name:</label>
+            <input type="text" name="username" id="usernameInputTag" required>
+            <label>Email:</label>
+            <input type="email" name="emailId" id="emailInputTag" required>
+            <label>Phone Number:</label>
+            <input type="tel" name="phonenumber" id="phonenumberInputTag">
+            <button>Submit</button>
+        </form>
+        <ul id="listOfitems"></ul>
+        <script src ="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+        <script>
+            function saveToLocalStorage(event){
+                event.preventDefault();
+                const name = event.target.username.value;
+                const email = event.target.emailId.value;
+                const phone = event.target.phonenumber.value;
+                
+                const obj ={
+                    name,
+                    email,
+                    phone
+                }    
+                axios.post("https://crudcrud.com/api/9b424b39b3d8427d83725f253a40df24/BookingsAppData",obj)
+                .then((response) =>{
+                    showUserOnScreen(response.data)
+                    console.log(response)
+                })
+                .catch((err) =>{
+                    console.log(err)
+                })
+                //localStorage.setItem(obj.email,JSON.stringify(obj)) //obj.email is keys 
+                //showUserOnScreen(obj)
+            }
+            function showUserOnScreen(obj){
+                const parentEle = document.getElementById('listOfitems');
+                const childEle = document.createElement('li');
+                childEle.textContent = obj.name+'-'+obj.email+'-'+obj.phone+'-';
+                parentEle.appendChild(childEle);
+
+                const delButton = document.createElement('input');
+                delButton.type = "button";
+                delButton.value = "Delete";
+                childEle.appendChild(delButton);
+
+                delButton.onclick = () => {
+                    localStorage.removeItem(obj.email);
+                    parentEle.removeChild(childEle);
+                }
+                
+                const editButton = document.createElement('input');
+                editButton.type = "button";
+                editButton.value = "Edit";
+                childEle.appendChild(editButton);
+
+                editButton.onclick = () =>{
+                    localStorage.removeItem(obj.email);
+                    parentEle.removeChild(childEle);
+                    document.getElementById('usernameInputTag').value = obj.name;
+                    document.getElementById('emailInputTag').value = obj.email;
+                    document.getElementById('phonenumberInputTag').value = obj.phone;
+                
+                }
+            }
+        </script>
+
+    </body>
+</html>
