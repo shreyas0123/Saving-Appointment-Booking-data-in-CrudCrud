@@ -10,6 +10,7 @@
             <button>Submit</button>
         </form>
         <ul id="listOfitems"></ul>
+        <!-- how do i make network call from one computer to another means i have to use axios. Axios is the code written by someone and we are just downloading that code and with the help of library called axios we are using that code. Also axios helps to communicate between front end to the server,front end run on your com[puter and server runs on cloud -->
         <script src ="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
         <script>
             function saveToLocalStorage(event){
@@ -23,6 +24,8 @@
                     email,
                     phone
                 }    
+                //post request helps to connect front to backend
+                //In order make website dynamic in nature we have to use backend. crudcrud website which provides backend api for free
                 axios.post("https://crudcrud.com/api/9b424b39b3d8427d83725f253a40df24/BookingsAppData",obj)
                 .then((response) =>{
                     showUserOnScreen(response.data)
