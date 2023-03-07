@@ -86,6 +86,7 @@
                 editButton.value = "Edit";
                 childEle.appendChild(editButton);
 
+                //when i click on edit button old user detail should be deleted and new edited user details should be printed
                 editButton.onclick = () =>{
                     //localStorage.removeItem(obj.email);
                     axios.delete("https://crudcrud.com/api/93ecd19d573c4922bb44e552c176c4a6/BookingsAppData/" + obj._id)
