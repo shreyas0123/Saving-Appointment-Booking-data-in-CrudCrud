@@ -67,9 +67,17 @@
                 delButton.value = "Delete";
                 childEle.appendChild(delButton);
 
+                //when i click delete button i need to delete the userdetails
                 delButton.onclick = () => {
-                    localStorage.removeItem(obj.email);
-                    parentEle.removeChild(childEle);
+                    //localStorage.removeItem(obj.email);
+                    //parentEle.removeChild(childEle);
+                    axios.delete("https://crudcrud.com/api/93ecd19d573c4922bb44e552c176c4a6/BookingsAppData/" + obj._id)
+                    .then(()=>{
+                        parentEle.removeChild(childEle)
+                    })
+                    .catch((err) =>{
+                        console.log(err);
+                    })
                 }
                 
                 const editButton = document.createElement('input');
